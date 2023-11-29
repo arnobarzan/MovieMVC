@@ -1,0 +1,123 @@
+
+
+////////////////////ACTOR CARD PARTIAL
+@model Actor
+
+<div class="card">
+    <div class="card-header">
+        <h1>@Model.FirstName - @Model.LastName</h1>
+        <img class="img-fluid" src="@Model.PictureUrl" />
+    </div>
+</div>
+
+///////////////////Actor of the week on index of home
+    @if (Model != null)
+    {
+        <h2>Actor of the Week</h2>
+        <div class="w-25 m-auto">
+            <partial name="_ActorCard" model="@Model" />
+        </div>
+    } else
+    {
+        <h2>No actors available 😔</h2>
+    }
+
+
+////////////////////JS includes for _Layout
+<script src="~/lib/jquery-validate/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+
+
+/////////////////// Add Actor cshtml
+@model Actor
+
+<form asp-action="AddActor" method="post" role="form">
+    <h3 class="my-5">
+        Add a new actor to the database
+    </h3>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="col-6">
+        <div class="row g-2">
+            <div class="col-12">
+                <label asp-for="FirstName" class="form-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <div class="col-md-offset-2 col-md-5">
+                <input type="submit" class="btn btn-success" value="Create Actor" />
+                <input type="reset" class="btn btn-danger" value="RESET" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+//////////////// actor controller
+        [HttpPost]
+        public IActionResult AddActor(Actor actor)
+        {
+            if (ModelState.IsValid) { 
+                _actorRepository.CreateActor(actor);
+                return RedirectToAction("CreatedActor", actor);
+            } else
+            {
+                return View(actor);
+            }
+        }
+		
+		public IActionResult CreatedActor(Actor actor)
+		{
+			return View(actor);
+		}
+
+		public IActionResult Delete(Guid id)
+		{
+			_actorRepository.DeleteActorById(id);
+			return RedirectToAction("Index");
+		}
+	
+////////////// CreatedActor cshtml	
+@model Actor
+
+<h1>Success!!!</h1>
+<p>@Model.LastName was added to the DB and got an unique id: @Model.Id</p>
+
+
+////////////// Index actor cshtml
+<a class="btn btn-primary" asp-area="" asp-controller="Actor" asp-action="AddActor">Add a new actor</a>
+
+<div class="row">
+    @foreach (Actor a in Model)
+    {
+        <div class="col-3">
+            <partial name="_ActorCard" model="a" />
+            <a class="btn btn-danger" asp-controller="Actor" asp-action="Delete" asp-route-id="@a.Id">DELETE</a>
+        </div>
+    }
+</div>
+
+
+
+////////////////// Validation example Actor
+    public class Actor
+    {
+        public Guid Id { get; set; }
+        [Required(ErrorMessage = "Please fill in a first name")]
+        [Display(Name ="First Name")]
+        [RegularExpression(@"^[A-Z]{1}[a-zA-Z''-'\s]{1,40}$")]
+        public string FirstName { get; set; }
+        [Required(ErrorMessage = "Please fill in a last name")]
+        [MinLength(2, ErrorMessage = "Should contain 2 letters")]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        [Range(1900,2100)]
+        public int BirthYear { get; set; }
+        public string PictureUrl { get; set; }
+
+    }
