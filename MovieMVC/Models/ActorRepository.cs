@@ -33,8 +33,8 @@ namespace MovieAppMVC.Models
 
         public void CreateActor(Actor actor)
         {
-            // TODO
-            throw new NotImplementedException();
+            _dbContext.Actors.Add(actor);
+            _dbContext.SaveChanges();
         }
 
         public void DeleteActorById(Guid id)

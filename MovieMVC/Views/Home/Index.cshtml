@@ -1,7 +1,20 @@
-﻿@{
+﻿@model Actor?
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Movie App MVC</h1>
 </div>
+
+<h2>Actor of the Week</h2>
+@if (Model != null)
+{
+    <div class="w-25 m-auto">
+        <partial name="_ActorCard" model="@Model" />
+    </div>
+}
+else
+{
+    <h2>No actors available 😔</h2>
+}

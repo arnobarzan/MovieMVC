@@ -1,8 +1,18 @@
 ﻿@model IEnumerable<Actor>
 
 
+<a class="btn btn-primary" asp-controller="Actor" asp-action="AddActor">
+    ADD A NEW ACTOR TO THE DB
+</a>
+
+<div class="row">
+
+
 @foreach (Actor a in Model)
 {
-    <h1>@a.LastName</h1>
+    <div class="col-3">
+        <partial name="_ActorCard" model="a" />
+    </div>
 }
 
+</div>
