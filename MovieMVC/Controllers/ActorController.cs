@@ -41,7 +41,7 @@ namespace MovieAppMVC.Controllers
             Actor? deletedActor = _actorRepository.DeleteActorById(id);
             if (deletedActor != null)
             {
-                return View("DeletedActor", deletedActor);
+                return View(deletedActor);
             }
 
             return BadRequest("Actor not found");
