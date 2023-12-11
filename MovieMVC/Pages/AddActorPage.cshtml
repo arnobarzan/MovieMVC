@@ -1,0 +1,49 @@
+﻿@page
+@model MovieAppMVC.Pages.AddActorPageModel
+@{
+}
+<form method="post" role="form">
+    <h3 class="my-5">
+        Add a new actor to the database
+    </h3>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="col-6">
+        <div class="row g-2">
+            <div class="col-12">
+                <label asp-for="ActorToAdd.FirstName" class="form-label"></label>
+                <input asp-for="ActorToAdd.FirstName" class="form-control" />
+                <span asp-validation-for="ActorToAdd.FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col-12">
+                <label asp-for="ActorToAdd.LastName" class="form-label"></label>
+                <input asp-for="ActorToAdd.LastName" class="form-control" />
+                <span asp-validation-for="ActorToAdd.LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col-12">
+                <label asp-for="ActorToAdd.BirthYear" class="form-label"></label>
+                <input asp-for="ActorToAdd.BirthYear" class="form-control" />
+                <span asp-validation-for="ActorToAdd.BirthYear" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row g-2">
+            <div class="col-12">
+                <label asp-for="ActorToAdd.PictureUrl" class="form-label"></label>
+                <input asp-for="ActorToAdd.PictureUrl" class="form-control" />
+                <span asp-validation-for="ActorToAdd.PictureUrl" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-2">
+            <div class="col-md-offset-2 col-md-5">
+                <input type="submit" class="btn btn-success" value="Create Actor" />
+                <input type="reset" class="btn btn-danger" value="RESET" />
+            </div>
+        </div>
+    </div>
+</form>

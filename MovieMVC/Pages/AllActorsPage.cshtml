@@ -1,0 +1,11 @@
+﻿@page
+@using MovieAppMVC.Models
+@model MovieAppMVC.Pages.AllActorsPageModel
+@{
+}
+
+
+@foreach (Actor actor in Model.Actors)
+{
+    <h1>@actor.LastName</h1>
+}

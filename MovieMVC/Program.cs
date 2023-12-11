@@ -8,6 +8,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IActorRepository, ActorRepository>();
 
+builder.Services.AddRazorPages();
+
 builder.Services.AddDbContext<MovieAppDbContext>(options => {
     options.UseSqlServer(
         builder.Configuration["ConnectionStrings:MovieDbContextConnection"]);
@@ -33,5 +35,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
