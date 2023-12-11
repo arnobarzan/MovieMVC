@@ -37,10 +37,16 @@ namespace MovieAppMVC.Models
             _dbContext.SaveChanges();
         }
 
-        public void DeleteActorById(Guid id)
+        public Actor? DeleteActorById(Guid id)
         {
-            // TODO
-            throw new NotImplementedException();
+            Actor? toDelete = this.GetActorById(id);
+            if (toDelete is not null)
+            {
+                _dbContext.Actors.Remove(toDelete);
+                _dbContext.SaveChanges();
+            }
+
+            return toDelete;
         }
 
         public Actor? GetActorById(Guid actorId)

@@ -36,6 +36,17 @@ namespace MovieAppMVC.Controllers
             }
         }
 
+        public IActionResult DeleteActor(Guid id)
+        {
+            Actor? deletedActor = _actorRepository.DeleteActorById(id);
+            if (deletedActor != null)
+            {
+                return View("DeletedActor", deletedActor);
+            }
+
+            return BadRequest("Actor not found");
+        }
+
         public ViewResult CreatedActor(Actor actor)
         {
             return View(actor);

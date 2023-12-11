@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Actor>
-
+@{
+    ViewData["Title"] = "All Actors";
+}
 
 <a class="btn btn-primary" asp-controller="Actor" asp-action="AddActor">
     ADD A NEW ACTOR TO THE DB
@@ -8,10 +10,13 @@
 <div class="row">
 
 
-@foreach (Actor a in Model)
+@foreach (Actor actor in Model)
 {
     <div class="col-3">
-        <partial name="_ActorCard" model="a" />
+        <partial name="_ActorCard" model="actor" />
+            <a class="btn btn-danger" asp-controller="Actor" asp-action="DeleteActor" asp-route-id="@actor.Id" asp->
+            Delete
+        </a>
     </div>
 }
 

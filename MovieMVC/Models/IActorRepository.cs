@@ -6,6 +6,6 @@
         Actor? ActorOfTheWeek { get; }
         Actor? GetActorById(Guid actorId);
         void CreateActor(Actor actor);
-        void DeleteActorById(Guid id);
+        Actor? DeleteActorById(Guid id);
     }
 }
